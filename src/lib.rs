@@ -9,13 +9,18 @@ use wasm_bindgen::prelude::*;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-extern {
-    fn alert(s: &str);
+pub fn add(operand1: u8, operand2: u8) -> u8 {
+    let answer = operand1 + operand2;
+    answer
 }
 
-#[wasm_bindgen]
-pub fn greet(name: &str) {
-    let greeting = "Hello, ";
-    let greeting = format!("{}{}", greeting, name);
-    alert(greeting.as_str());
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn test_add_function() {
+        let answer = add(1, 2);
+        assert_eq!(answer, 3);
+    }
 }
